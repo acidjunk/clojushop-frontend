@@ -1,8 +1,8 @@
 (defproject shop "0.1.0-SNAPSHOTNEWNEWNEW"
   :description "A small react/semantic-ui frontend for http://github.com/acidjunk/flask-shop"
   :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :license {:name "MIT license"
+            :url "https://mit-license.org/"}
 
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [ring-server "0.5.0"]

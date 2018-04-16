@@ -1,3 +1,13 @@
+# Clojurescript shop frontend
+
+Started with:
+lein new reagent-frontend shop
+
+Todo: find out if we need: +test +devcards +sass
+
+This is a frontend for:
+https://github.com/acidjunk/flask-shop
+
 
 ### Development mode
 
