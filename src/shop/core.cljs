@@ -41,7 +41,7 @@ Try and call this function from the ClojureScript REPL."
 ;; Data
 (defn load-products! "Fetches the list of products from the server and updates the state atom with it"
   [state]
-  (GET "https://5begjtugmg.execute-api.eu-central-1.amazonaws.com/production/api/products"
+  (GET "https://www.opnsense-hardware.nl/api/products"
            {:handler (fn [products] (swap! state assoc :products (#(zipmap (map :url %) %) products)) (println state))
             :error-handler (fn [details] (.warn js/console (str "Failed to refresh products from server: " details)))
             :response-format :json, :keywords? true})
@@ -49,7 +49,7 @@ Try and call this function from the ClojureScript REPL."
 
 (defn load-customer! "Fetches the info of a customer by logging in with an registered e-mail and password"
   [state]
-  (GET "https://5begjtugmg.execute-api.eu-central-1.amazonaws.com/production/api/customer/acidjunk@gmail.com"
+  (GET "https://www.opnsense-hardware.nl/api/customer/acidjunk@gmail.com"
        {:headers {:Authorization (str "Basic " (string-to-base64-string "acidjunk@gmail.com:acidjunk@gmail.com"))}
         :handler (fn [customer] (swap! state assoc :customer customer))
         :error-handler (fn [details] (.warn js/console (str "Failed to fetch customers from server: " details)))
