@@ -41,7 +41,7 @@ Try and call this function from the ClojureScript REPL."
 ;; Data
 (defn load-products! "Fetches the list of products from the server and updates the state atom with it"
   [state]
-  (GET "https://www.opnsense-hardware.nl/api/products"
+  (GET "https://api.opnsense-hardware.nl/products"
            {:handler (fn [products] (swap! state assoc :products (#(zipmap (map :url %) %) products)) (println state))
             :error-handler (fn [details] (.warn js/console (str "Failed to refresh products from server: " details)))
             :response-format :json, :keywords? true})
@@ -49,7 +49,7 @@ Try and call this function from the ClojureScript REPL."
 
 (defn load-customer! "Fetches the info of a customer by logging in with an registered e-mail and password"
   [state]
-  (GET "https://www.opnsense-hardware.nl/api/customer/acidjunk@gmail.com"
+  (GET "https://api.opnsense-hardware.nl/customer/acidjunk@gmail.com"
        {:headers {:Authorization (str "Basic " (string-to-base64-string "acidjunk@gmail.com:acidjunk@gmail.com"))}
         :handler (fn [customer] (swap! state assoc :customer customer))
         :error-handler (fn [details] (.warn js/console (str "Failed to fetch customers from server: " details)))
@@ -87,7 +87,7 @@ Try and call this function from the ClojureScript REPL."
     [:div {:class (if(= "about" item) "item active" "item")} [:a {:href "/about"} "About"]]
 
     ;; Temporary
-    [:div {:class (if(= "checkout" item) "item active" "item")} [:a {:href "/checkout"} "Checkout"]]
+    ; [:div {:class (if(= "checkout" item) "item active" "item")} [:a {:href "/checkout"} "Checkout"]]
 
 
     [:div {:class "right menu"}
@@ -99,10 +99,10 @@ Try and call this function from the ClojureScript REPL."
 ;     ([:div {:class "item"}  [:i {:class "user icon"}] "yo yo"] (fnil ) )
 
      ;; login
-     ;;  [:div {:class (if(= "login" item) "item active" "item")} [:a {:href "/login"} [:i {:class "user icon"}]]]
+     [:div {:class (if(= "login" item) "item active" "item")} [:a {:href "/login"} [:i {:class "user icon"}]]]
      ;;  Force auto login for now :)
-     [:div {:class "item" :on-click #(load-customer! state)} [:i {:class "user icon"}] ""]
-     [:div {:class "item" :on-click #(reset-customer! state)} [:i {:class "close icon"}] ""]
+     ; [:div {:class "item" :on-click #(load-customer! state)} [:i {:class "user icon"}] ""]
+     ; [:div {:class "item" :on-click #(reset-customer! state)} [:i {:class "close icon"}] ""]
     ]
    ]]))
 
@@ -315,6 +315,7 @@ Try and call this function from the ClojureScript REPL."
        (for [product (->> cart)]
          ^{:key (:name product)} [:div {:class "item"} (cart_item product)] )
      ]
+     [:a {:href "/checkout"} [:button {:class "ui animated fade button"} [:div {:class "visible content"} "Checkout"] [:div {:class "hidden content"} "Now"]]]
     ]
   ))
 
@@ -376,7 +377,7 @@ Try and call this function from the ClojureScript REPL."
    ] ;; end login segment and form
 
 
-   [:div {:class "ui segment"}  [:div {:class "content"} [edn->hiccup @state]] ]
+   ; [:div {:class "ui segment"}  [:div {:class "content"} [edn->hiccup @state]] ]
 
 
 
