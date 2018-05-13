@@ -114,7 +114,7 @@ Try and call this function from the ClojureScript REPL."
 
 (defn product-item [{:keys [name seo_name url intro list_image usp1 usp2 usp3 categories price]}]
   [:div {:class "card"}
-   [:div {:class "image"} [:img {:src list_image}]]
+   [:a {:href (str "/product/" url)} [:div {:class "image"} [:img {:src list_image}]]]
    [:div {:class "content"}
     [:div {:class "header"} name]
     [:div {:class "meta"}
